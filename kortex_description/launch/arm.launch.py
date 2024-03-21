@@ -39,7 +39,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "gripper",
-            default_value='""',
+            default_value="robotiq_2f_85",
             description="Name of the gripper attached to the arm",
         )
     )
@@ -55,7 +55,7 @@ def generate_launch_description():
                 [FindPackageShare("kortex_description"), "robots", "kinova.urdf.xacro"]
             ),
             " ",
-            "robot_ip:=xxx.yyy.zzz.www",
+            "robot_ip:=192.168.5.111",
             " ",
             "name:=kinova",
             " ",
@@ -65,13 +65,11 @@ def generate_launch_description():
             "gripper:=",
             gripper,
             " ",
+            "vision:=true",
+            " ",
         ]
     )
     robot_description = {"robot_description": robot_description_content}
-
-    rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("kortex_description"), "rviz", "view_robot.rviz"]
-    )
 
     robot_state_publisher = Node(
         package="robot_state_publisher",
@@ -79,12 +77,13 @@ def generate_launch_description():
         name="kinova_state_publisher",
         output="screen",
         parameters=[robot_description],
+        remappings=[
+                ('/robot_description', '/kinova_description'),
+            ],
     )
 
     nodes_to_start = [
         robot_state_publisher,
-        # joint_state_publisher_gui,
-        # rviz,
     ]
 
     return LaunchDescription(declared_arguments + nodes_to_start)

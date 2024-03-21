@@ -33,7 +33,7 @@
     <xacro:property name="initial_positions_file" default="$(arg initial_positions_file)"/>
     <link name="world" />
     <xacro:load_robot
-        parent="world"
+        parent="base_link"
         arm="$(arg arm)"
         gripper="$(arg gripper)"
         gripper_joint_name="$(arg gripper_joint_name)"

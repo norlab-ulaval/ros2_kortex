@@ -20,10 +20,10 @@
       gripper="$(arg gripper)"
       dof="$(arg dof)"
       vision="$(arg vision)"
-      sim="$(arg sim)"
       prefix="$(arg prefix)"
       use_internal_bus_gripper_comm="$(arg use_internal_bus_gripper_comm)"
       gripper_com_port="$(arg gripper_com_port)">
+      <!-- <xacro:insert_block name="origin" /> -->
     </xacro:load_robot>
 
 </robot>

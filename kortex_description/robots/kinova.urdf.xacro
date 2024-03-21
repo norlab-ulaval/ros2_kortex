@@ -5,11 +5,11 @@
   <xacro:arg name="name" default="kinova_arm" />
 
   <!-- Arguments -->
-  <xacro:arg name="prefix" default="" />
+  <xacro:arg name="prefix" default="arm_" />
   <xacro:arg name="arm" default="NO_ARM_TYPE_DEFINED" />
   <xacro:arg name="dof" default="7" />
   <xacro:arg name="vision" default="false" />
-  <xacro:arg name="robot_ip" default="192.168.11.11" />
+  <xacro:arg name="robot_ip" default="192.168.5.111" />
   <xacro:arg name="username" default="admin" />
   <xacro:arg name="password" default="admin" />
   <xacro:arg name="port" default="10000" />
@@ -42,11 +42,8 @@
   <!-- convert to property to use substitution in function -->
   <xacro:property name="initial_positions_file" default="$(arg initial_positions_file)"/>
 
-  <!-- create link fixed to the "world" -->
-  <link name="world" />
-
-  <xacro:load_robot
-    parent="world"
+    <xacro:load_robot
+    parent=""
     arm="$(arg arm)"
     gripper="$(arg gripper)"
     gripper_joint_name="$(arg gripper_joint_name)"
@@ -69,12 +66,12 @@
     sim_ignition="$(arg sim_ignition)"
     sim_isaac="$(arg sim_isaac)"
     initial_positions="${xacro.load_yaml(initial_positions_file)}" >
-    <origin xyz="0 0 0" rpy="0 0 0" />  <!-- position robot in the world -->
+    <origin xyz="0 0 0" rpy="0 0 0" />  <!-- position robot in the  -->
   </xacro:load_robot>
 
   <xacro:if value="$(arg sim_gazebo)">
     <!-- Gazebo plugins -->
-    <gazebo reference="world">
+    <gazebo reference="">
     </gazebo>
     <gazebo>
       <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
@@ -85,7 +82,7 @@
 
   <xacro:if value="$(arg sim_ignition)">
     <!-- Gazebo plugins -->
-    <gazebo reference="world">
+    <gazebo reference="">
     </gazebo>
     <gazebo>
       <plugin filename="libign_ros2_control-system.so" name="ign_ros2_control::IgnitionROS2ControlPlugin">
